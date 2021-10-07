@@ -1,6 +1,7 @@
 require "sinatra/base"
 require "sinatra/reloader"
 require_relative "lib/player"
+require_relative "lib/play"
 
 class Battle < Sinatra::Base
   enable :sessions
@@ -24,12 +25,14 @@ class Battle < Sinatra::Base
   get '/play' do
     # @player_1_name = session[:player_1_name]
     # @player_2_name = session[:player_2_name]
-    @player_2_hp = 100
+    # @player_2_hp = 100
+    $game = Play.new($player_1, $player_2)
     erb :play
   end
 
   get "/attack" do
     # @player_2_name = session[:player_2_name]
+    $game.attack
     erb :attack
   end
 
